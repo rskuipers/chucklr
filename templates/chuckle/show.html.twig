@@ -9,7 +9,7 @@
             <div class="chuckle-footer row">
                 <div class="col">
                     <time datetime="{{ chuckle.createdAt | date }}">{{ chuckle.createdAt | date('d-m-Y H:i:s') }}</time>
-                    {% if app.user == chuckle.author %}
+                    {% if app.user == chuckle.author and not broadcasting | default(false) %}
                         -
                         <a href="{{ path('app_chuckle_edit', { id: chuckle.id }) }}">edit</a>
                     {% endif %}

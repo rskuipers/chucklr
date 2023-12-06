@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\ChuckleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: ChuckleRepository::class)]
+#[Broadcast(topics: ["chuckles"])]
 class Chuckle
 {
     #[ORM\Id]
