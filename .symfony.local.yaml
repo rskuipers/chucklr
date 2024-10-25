@@ -1,0 +1,8 @@
+workers:
+  # built-in command that starts messenger consumer
+  messenger_consume_async:
+    cmd: ['symfony', 'console', 'messenger:consume', 'async']
+    watch: ['config', 'src', 'templates', 'vendor']
+
+  # auto start Docker compose when starting server (available since Symfony CLI 5.7.0)
+  docker_compose: ~
