@@ -21,7 +21,7 @@ final class ChuckleController extends AbstractController
         $form = $this->createForm(ChuckleType::class);
 
         return $this->render('chuckle/index.html.twig', [
-            'chuckles' => $chuckleRepository->findAll(),
+            'chuckles' => $chuckleRepository->getTimeline(),
             'form' => $form,
         ]);
     }

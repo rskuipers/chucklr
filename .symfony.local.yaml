@@ -6,3 +6,6 @@ workers:
 
   # auto start Docker compose when starting server (available since Symfony CLI 5.7.0)
   docker_compose: ~
+
+http:
+  no_tls: true # Use HTTP instead of HTTPS
