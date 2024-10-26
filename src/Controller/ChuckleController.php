@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\Chuckle;
 use App\Form\ChuckleType;
 use App\Repository\ChuckleRepository;
+use App\Repository\GiggleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -82,5 +85,15 @@ final class ChuckleController extends AbstractController
         }
 
         return $this->redirectToRoute('app_chuckle_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/chuckle/{id}/giggle', name: 'app_chuckle_giggle', methods: ['POST'])]
+    public function giggle(Chuckle $chuckle, HubInterface $hub, GiggleRepository $giggleRepository): Response
+    {
+        $giggleRepository->toggleGiggle($this->getUser(), $chuckle);
+
+        $hub->publish(new Update('chuckles', $this->renderView('stream/giggles.stream.html.twig', ['chuckle' => $chuckle])));
+
+        return new Response();
     }
 }
